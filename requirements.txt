@@ -2,3 +2,4 @@ django >3.2,<3.3
 djangorestframework
 drf-yasg[validation]
 faker
+docker

@@ -26,12 +26,10 @@ class Command(BaseCommand):
             app = Apps.objects.create(
                 name = f"App number {i+1}",
                 image = some_docker_images[randint(0, len(some_docker_images)-1)],
-                envs = {
-                    "envs": [
+                envs = [
                         {f"key{i}": f"val{i}"},
                         {f"key{i+1}": f"val{i+1}"}
-                    ]
-                },
-                command = f'"command": "sleep 100{i+1}"'
+                    ],
+                command = f'sleep 100{i+1}'
             )
             print(f"{app} CREATED!")
