@@ -1,22 +1,20 @@
-FROM python:3.8-slim-buster
+FROM ubuntu:18.04
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# RUN apt-get install apt-transport-https ca-certificates curl software-properties-common
-# RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-# RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu `lsb_release -cs` test"
-# RUN apt-get update
+# install docker
+RUN apt-get update && \
+    apt-get -qy full-upgrade && \
+    apt-get install -qy curl && \
+    curl -sSL https://get.docker.com/ | sh
 
-RUN apt update && \ 
-    apt-get install ca-certificates curl gnupg lsb-release -y && \
-    mkdir -p /etc/apt/keyrings && \
-    curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg && \
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
-    $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null && \
+# install python and pip
+RUN apt install software-properties-common -y && \
+    add-apt-repository ppa:deadsnakes/ppa && \
     apt update && \
-    apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y && \
-    service docker start 
+    apt install python3.8 -y && \
+    apt install python3-pip -y 
 
 WORKDIR /app
 
@@ -25,4 +23,6 @@ COPY ./core /app/
 
 RUN pip3 install --upgrade pip 
 RUN pip3 install -r requirements.txt
+
+ENTRYPOINT [ "sh", "-c", "python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000" ]
 
