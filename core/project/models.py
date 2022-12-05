@@ -4,7 +4,7 @@ from django.db import models
 class Apps(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False)
     image = models.CharField(max_length=255, null=False, blank=False)
-    envs = models.TextField(null=True, blank=True)
+    envs = models.JSONField(null=True, blank=True)
     command = models.TextField(null=True, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
