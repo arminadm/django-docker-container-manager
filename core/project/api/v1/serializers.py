@@ -41,7 +41,7 @@ class ContainerMonitoringSerializer(serializers.Serializer):
 
     def get_finished_at(self, obj):
         finished_at_time = obj.attrs['State'].get('FinishedAt')
-        if finished_at_time == "0001-01-01T00:00:00Z":
+        if obj.attrs['State']['Status'] == "running":
             return "None"
         return finished_at_time
 
