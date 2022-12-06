@@ -5,7 +5,10 @@ from rest_framework.mixins import UpdateModelMixin
 from rest_framework.generics import GenericAPIView
 from django.shortcuts import get_object_or_404
 from project.models import Apps
-from .serializers import ManageAppsSerializer
+from .serializers import (
+    ManageAppsSerializer,
+    ContainerMonitoringSerializer,
+)
 
 class ManageAppsViews(ViewSet, UpdateModelMixin):
     """
@@ -87,3 +90,12 @@ class RunContainerView(GenericAPIView):
                 return Response({"error": f"{e}"})   
 
         return Response(container.id)
+
+
+class ContainerMonitoringView(GenericAPIView):
+    serializer_class = ContainerMonitoringSerializer
+    
+    def get(self, request, *args, **kwargs):
+        client = docker.from_env()
+        serializer = self.serializer_class(client.containers.list(all=True), many=True)
+        return Response(serializer.data)
