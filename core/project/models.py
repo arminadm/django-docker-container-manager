@@ -9,5 +9,9 @@ class Apps(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name = 'App'
+        verbose_name_plural = 'Apps'
+
     def __str__(self):
         return f"App object: id:{self.id} - name:{self.name} - image:{self.image}"
