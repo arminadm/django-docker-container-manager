@@ -8,6 +8,7 @@ from project.models import Apps
 from .serializers import (
     ManageAppsSerializer,
     ContainerMonitoringSerializer,
+    RunContainerSerializer
 )
 
 class ManageAppsViews(ViewSet, UpdateModelMixin):
@@ -49,6 +50,8 @@ class RunContainerView(GenericAPIView):
     """
     Run a container from an app
     """
+    serializer_class = RunContainerSerializer
+
     def post(self, request, pk=None):
         app = get_object_or_404(Apps, pk=pk)
         client = docker.from_env()
@@ -89,7 +92,8 @@ class RunContainerView(GenericAPIView):
             else:
                 return Response({"error": f"{e}"})   
 
-        return Response(container.id)
+        serializer = self.serializer_class(container)
+        return Response(serializer.data)
 
 
 class ContainerMonitoringView(GenericAPIView):
