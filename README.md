@@ -1,8 +1,5 @@
 # django-docker-container-manager
 
-# WARNING: This app requires linux and docker
-this app shares host's Docker daemon with guest's container, so you should have installed Docker and using linux os for the best experience
-
 # How to Setup
 #### 1- Clone the project
 #### 2- run `docker-compose up --build` for setting up
