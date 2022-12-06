@@ -4,11 +4,11 @@
 this app shares host's Docker daemon with guest's container, so you should have installed Docker and using linux os for the best experience
 
 # How to Setup
-### 1- Clone the project
-### 2- run `docker-compose up --build` for setting up
-### 3- run `docker-compose exec backend sh -c "python3 manage.py createsuperuser"` for creating admin panel user
-### 4- (optional) run `docker-compose exec backend sh -c "python3 manage.py generate_fake_data"` for generating fake data so you can have better testing experience
-### 5- (optional) run `docker-compose exec backend sh -c "python3 manage.py test"` for testing the endpoints functionality
+#### 1- Clone the project
+#### 2- run `docker-compose up --build` for setting up
+#### 3- run `docker-compose exec backend sh -c "python3 manage.py createsuperuser"` for creating admin panel user
+#### 4- (optional) run `docker-compose exec backend sh -c "python3 manage.py generate_fake_data"` for generating fake data so you can have better testing experience
+#### 5- (optional) run `docker-compose exec backend sh -c "python3 manage.py test"` for testing the endpoints functionality
 
 # How to use
 ### CRUD operations are available by 
