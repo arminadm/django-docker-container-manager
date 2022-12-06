@@ -1,6 +1,6 @@
 # django-docker-container-manager
 
-# ![#f03c15](WARNING: This app requires linux and docker)
+# WARNING: This app requires linux and docker
 this app shares host's Docker daemon with guest's container, so you should have installed Docker and using linux os for the best experience
 
 # How to Setup
