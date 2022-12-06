@@ -4,6 +4,8 @@ from .views import (
     ContainerMonitoringView
 )
 
+app_name = 'api-v1'
+
 urlpatterns = [
     path("manage_apps/", ManageAppsViews.as_view(
             {"get":"list", "post":"create"}

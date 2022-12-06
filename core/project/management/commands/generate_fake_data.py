@@ -5,12 +5,8 @@ from project.models import Apps
 
 some_docker_images = [
     'nginx',
-    'alpine',
     'busybox',
     'redis',
-    'debian',
-    'fedora',
-    'centos',
 ]
 
 class Command(BaseCommand):

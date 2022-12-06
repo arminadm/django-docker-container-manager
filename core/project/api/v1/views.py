@@ -3,6 +3,7 @@ from rest_framework.views import Response
 from rest_framework.viewsets import ViewSet
 from rest_framework.mixins import UpdateModelMixin
 from rest_framework.generics import GenericAPIView
+from rest_framework import status
 from django.shortcuts import get_object_or_404
 from project.models import Apps
 from .serializers import (
@@ -20,30 +21,30 @@ class ManageAppsViews(ViewSet, UpdateModelMixin):
 
     def list(self, request):
         serializer = self.serializer_class(self.queryset, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def create(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
     
     def retrieve(self, request, pk=None):
         app = get_object_or_404(self.queryset, pk=pk)
         serializer = self.serializer_class(app)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
     def update(self, request, pk=None, *args, **kwargs):
         app = get_object_or_404(self.queryset, pk=pk)
         serializer = self.serializer_class(app, data=request.data, partial=False)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def destroy(self, request, pk):
         app = get_object_or_404(self.queryset, pk=pk)
         app.delete()
-        return Response({'detail':f'app object {pk} removed successfully'})
+        return Response({'detail':f'app object {pk} removed successfully'}, status=status.HTTP_204_NO_CONTENT)
 
 
 class RunContainerView(GenericAPIView):
@@ -86,14 +87,14 @@ class RunContainerView(GenericAPIView):
                             resolve_name_conflict = True
                             copy_counter += 1
                         else:
-                            return Response({"error": f"{e}"})    
+                            return Response({"error": f"{e}"}, status=status.HTTP_400_BAD_REQUEST)    
             
             # error handling: others
             else:
-                return Response({"error": f"{e}"})   
+                return Response({"error": f"{e}"}, status=status.HTTP_400_BAD_REQUEST)   
 
         serializer = self.serializer_class(container)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class ContainerMonitoringView(GenericAPIView):

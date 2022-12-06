@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Apps(models.Model):
-    name = models.CharField(max_length=255, null=False, blank=False)
+    name = models.CharField(max_length=255, unique=True, null=False, blank=False)
     image = models.CharField(max_length=255, null=False, blank=False)
     envs = models.JSONField(null=True, blank=True)
     command = models.TextField(null=True, blank=True)
