@@ -98,8 +98,10 @@ class RunContainerView(GenericAPIView):
 
 class ContainerMonitoringView(GenericAPIView):
     serializer_class = ContainerMonitoringSerializer
-    
-    def get(self, request, *args, **kwargs):
+    def get_queryset(self):
         client = docker.from_env()
-        serializer = self.serializer_class(client.containers.list(all=True), many=True)
+        return client.containers.list(all=True)
+
+    def get(self, request, *args, **kwargs):
+        serializer = self.serializer_class(self.get_queryset(), many=True)
         return Response(serializer.data)

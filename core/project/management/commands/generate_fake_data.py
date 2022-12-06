@@ -27,8 +27,8 @@ class Command(BaseCommand):
                 name = f"App number {i+1}",
                 image = some_docker_images[randint(0, len(some_docker_images)-1)],
                 envs = [
-                        {f"key{i}": f"val{i}"},
-                        {f"key{i+1}": f"val{i+1}"}
+                        f"key{i}=val{i}",
+                        f"key{i+1}=val{i+1}"
                     ],
                 command = f'sleep 100{i+1}'
             )
