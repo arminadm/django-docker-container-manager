@@ -8,6 +8,7 @@
 #### 5- (optional) run `docker-compose exec backend sh -c "python3 manage.py test"` for testing the endpoints functionality
 
 # How to use
+### Swagger API: http://127.0.0.1:8000/swagger/
 ### CRUD operations are available by 
 http://127.0.0.1:8000/manage_apps/ <br/> (get: list of apps, post: create new app) <br/>
 http://127.0.0.1:8000/manage_apps/detail/(int:pk)/ <br/>(get: retrieve single app info, put: update selected app info, delete: delete selected app)
