@@ -62,7 +62,7 @@ class TestBlogView(TestCase):
     def test_run_container(self):
         # create container from app
         url = reverse('api-v1:run-container', kwargs={'pk':"1"})
-        response_run_container = self.client.post(url)
+        response_run_container = self.client.get(url)
         self.assertEquals(response_run_container.status_code, 200)
         test_container_id = response_run_container.data["id"]
 

@@ -53,7 +53,7 @@ class RunContainerView(GenericAPIView):
     """
     serializer_class = RunContainerSerializer
 
-    def post(self, request, pk=None):
+    def get(self, request, pk=None):
         app = get_object_or_404(Apps, pk=pk)
         client = docker.from_env()
         try:
